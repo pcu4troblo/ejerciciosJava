@@ -47,114 +47,154 @@ public class Electrodomestico {
 
     //METHODS
     private void comprobarConsumoEnergetico(char letra) {
-        if (letra == 'A' || letra == 'B' || letra == 'C' || letra == 'D' || letra == 'E' || letra == 'F'){
-            System.out.println("Letra correcta");
+        if (letra == 'A' || letra == 'B' || letra == 'C' || letra == 'D' || letra == 'E' || letra == 'F') {
             this.consumoEnergetico = letra;
-        }else{
-            System.out.println("Letra incorrecta, le asignaremos una por defecto.");
+        } else {
+            System.out.println("Consumo energetico incorrecto, le asignaremos uno por defecto.");
             this.consumoEnergetico = 'F';
         }
     }
 
     private void comprobarColor(String color) {
         color = color.toLowerCase();
-        if (color == "blanco" || color == "negro" || color == "rojo" || color == "azul" || color == "gris"){
-            System.out.println("Letra correcta");
+        if (color == "blanco" || color == "negro" || color == "rojo" || color == "azul" || color == "gris") {
             this.color = color;
-        }else{
-            System.out.println("Letra incorrecta, le asignaremos una por defecto.");
+        } else {
             this.color = "blanco";
         }
     }
 
-    public int precioFinal(){
+    public int precioFinal() {
         int precioFinal = 0;
-        switch(this.consumoEnergetico){
+        switch (this.consumoEnergetico) {
             case 'A':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 100*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 100*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 100 * 80;
-                }else if (peso > 80){
-                    precioFinal = 100*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+                precioFinal = this.precioBase + 100;
                 break;
             case 'B':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 80*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 80*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 80 * 80;
-                }else if (peso > 80){
-                    precioFinal = 80*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+                precioFinal = this.precioBase + 80;
                 break;
             case 'C':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 60*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 60*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 60 * 80;
-                }else if (peso > 80){
-                    precioFinal = 60*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+                precioFinal = this.precioBase + 60;
                 break;
             case 'D':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 50*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 50*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 50 * 80;
-                }else if (peso > 80){
-                    precioFinal = 50*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+                precioFinal = this.precioBase + 50;
                 break;
             case 'E':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 30*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 30*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 30 * 80;
-                }else if (peso > 80){
-                    precioFinal = 30*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+                precioFinal = this.precioBase + 30;
                 break;
             case 'F':
-                if (peso >= 0 && peso<=19){
-                    precioFinal = 10*10;
-                }else if(peso >= 20 && peso<49){
-                    precioFinal = 10*50;
-                }else if(peso >= 50 && peso <= 79){
-                    precioFinal = 10 * 80;
-                }else if (peso > 80){
-                    precioFinal = 10*100;
-                }else{
-                    System.out.println("peso incorrecto");
-                    return 0;
-                }
+               precioFinal = this.precioBase + 10;
                 break;
+        }
+
+        if (peso >= 0 && peso <= 19) {
+            precioFinal = precioFinal + 10;
+        } else if (peso >= 20 && peso < 49) {
+            precioFinal = precioFinal + 50;
+        } else if (peso >= 50 && peso <= 79) {
+            precioFinal = precioFinal + 80;
+        } else if (peso >= 80) {
+            precioFinal = precioFinal + 100;
+        } else {
+            System.out.println("peso incorrecto");
+            return 0;
         }
         return precioFinal;
     }
 }
+
+
+//CLASE LAVADORA
+class Lavadora extends Electrodomestico {
+    int carga;
+
+    //CONSTRUCTORES
+    public Lavadora() {
+        super();
+        this.carga = 5;
+    }
+
+    public Lavadora(int precioBase, String color, char consumoEnergetico, int peso, int carga) {
+        super(precioBase, color, consumoEnergetico, peso);
+        this.carga = carga;
+    }
+
+    public Lavadora(int precioBase, int peso) {
+        super(precioBase, peso);
+        this.carga = 5;
+    }
+
+    //GETTERS
+
+    public int getCarga() {
+        return carga;
+    }
+
+    //METHODS
+
+    public int precioFinal() {
+        int precioFinal;
+        precioFinal = super.precioFinal();
+        if (this.carga > 30) {
+            precioFinal = precioFinal + 50;
+        }
+        return precioFinal;
+    }
+}
+
+
+
+//CLASE TELEVISION
+class Television extends Electrodomestico{
+    float resolucion;
+    boolean sintonizadorTDT;
+
+
+    //CONSTRUCTORES
+    public Television(){
+        super();
+        this.resolucion = 20;
+        this.sintonizadorTDT = false;
+    }
+
+    public Television(int precioBase, int peso){
+        super(precioBase, peso);
+        this.resolucion = 20;
+        this.sintonizadorTDT = false;
+    }
+
+    public Television(int precioBase, String color, char consumoEnergetico, int peso, float resolucion, boolean sintonizadorTDT) {
+        super(precioBase, color, consumoEnergetico, peso);
+        this.resolucion = resolucion;
+        this.sintonizadorTDT = sintonizadorTDT;
+    }
+
+    //GETTERS
+    public float getResolucion() {
+        return resolucion;
+    }
+
+    public boolean isSintonizadorTDT() {
+        return sintonizadorTDT;
+    }
+
+    //METHODS
+
+    public int precioFinal() {
+        int precioFinal;
+        double aumento;
+        precioFinal = super.precioFinal();
+        if (this.resolucion > 40){
+            aumento = precioFinal % 0.30;
+        }
+        if (this.sintonizadorTDT) {
+            precioFinal = precioFinal + 50;
+        }
+        return precioFinal;
+    }
+
+}
+
+
+
+

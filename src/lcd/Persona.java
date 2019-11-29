@@ -6,7 +6,7 @@ public class Persona {
     public String nombre;
     private char sexo;
     private int edad;
-    private int DNI;
+    private String DNI;
     private double peso, altura;
 
     public Persona(){
@@ -78,10 +78,15 @@ public class Persona {
     }
 
     private void generaDNI(){
+        char[] letras = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K', 'E'};
+        char letra;
+        int numeroLetra = 0;
         Random r = new Random();
         int low = 10000000, high = 99999999;
         int result = r.nextInt(high-low) + low;
-        this.DNI = result;
+        numeroLetra = result%23;
+        letra = letras[numeroLetra];
+        this.DNI = Integer.toString(result) + "-" + letra;
     }
 
     public void setNombre(String nombre) {
